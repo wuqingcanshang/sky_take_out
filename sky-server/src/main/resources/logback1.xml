@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <!-- Console appender for info-level logs -->
+     Console appender for info-level logs
     <appender name="CONSOLE_INFO" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] %c [%thread] : %msg%n</pattern>
@@ -30,17 +30,6 @@
         </rollingPolicy>
     </appender>
 
-    <!-- Console appender for debug-level logs -->
-<!--    <appender name="CONSOLE_DEBUG" class="ch.qos.logback.core.ConsoleAppender">-->
-<!--        <encoder>-->
-<!--            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] %c [%thread] : %msg%n</pattern>-->
-<!--        </encoder>-->
-<!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
-<!--            <level>DEBUG</level>-->
-<!--            <onMatch>ACCEPT</onMatch>-->
-<!--            <onMismatch>DENY</onMismatch>-->
-<!--        </filter>-->
-<!--    </appender>-->
 
     <!-- File appender for debug-level logs -->
     <appender name="FILE_DEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -49,16 +38,31 @@
             <charset>utf-8</charset>
         </encoder>
         <file>D:/restore/sky-take-out/debug-data.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>D:/log/debug-data-%i-%d{yyyy-MM-dd}-.log.gz</fileNamePattern>
-            <maxFileSize>1MB</maxFileSize>
+            <maxFileSize>10MB</maxFileSize>
         </rollingPolicy>
     </appender>
+    <logger name="com.sky.mapper" level="DEBUG" additivity="false">
+        <appender-ref ref="FILE_DEBUG"/>
+    </logger>
+    <logger name="com.sky.service" level="INFO" additivity="false">
+        <appender-ref ref="FILE_INFO"/>
+    </logger>
+    <logger name="com.sky.controller" level="INFO" additivity="false">
+        <appender-ref ref="FILE_DEBUG"/>
+    </logger>
 
-    <!-- Root logger for info-level logs -->
-    <root level="info">
+     Root logger for info-level logs
+    <root level="INFO">
         <appender-ref ref="CONSOLE_INFO"/>
         <appender-ref ref="FILE_INFO"/>
         <appender-ref ref="FILE_DEBUG"/>
     </root>
+
 </configuration>
