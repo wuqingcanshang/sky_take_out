@@ -121,6 +121,25 @@ public class DishServiceImpl implements DishService {
 
         return dishVO;
     }
+
+    @Override
+    public void startOrStop(Integer status, Long id) {
+        Dish dish = Dish.builder()
+                .id(id)
+                .status(status)
+                .build();
+        dishMapper.update(dish);
+    }
+
+    @Override
+    public List<Dish> list(Long categoryId) {
+
+        Dish dish=Dish.builder().categoryId(categoryId)
+                .status(StatusConstant.ENABLE)
+                .build();
+        return dishMapper.list(dish);
+    }
+
     /**
      * 根据id修改菜品基本信息和对应的口味信息
      *
