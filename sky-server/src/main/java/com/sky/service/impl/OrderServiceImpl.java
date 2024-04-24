@@ -179,7 +179,7 @@ public class OrderServiceImpl implements OrderService {
         //订单处于接单状态下，需要进行退款
         if (ordersDB.getStatus().equals(Orders.TO_BE_CONFIRMED)) {
             weChatPayUtil.refund(ordersDB.getNumber(), ordersDB.getNumber(),
-                    new BigDecimal(0.01),
+                    new BigDecimal("0.01"),
                     new BigDecimal(0.01));
             orders.setPayStatus(Orders.REFUND);
         }
@@ -215,7 +215,6 @@ public class OrderServiceImpl implements OrderService {
      * 订单支付
      *
      * @param ordersPaymentDTO
-     * @return
      */
     public OrderPaymentVO payment(OrdersPaymentDTO ordersPaymentDTO) throws Exception {
         // 当前登录用户id
